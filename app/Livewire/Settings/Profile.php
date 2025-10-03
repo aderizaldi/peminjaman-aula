@@ -51,7 +51,7 @@ class Profile extends Component
 
         $user->save();
 
-        $this->dispatch('showToast', status: 'success', message: 'Profile updated.');
+        $this->dispatch('showToast', status: 'success', message: 'Profil berhasil diubah.');
     }
 
     /**

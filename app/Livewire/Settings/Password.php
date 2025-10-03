@@ -38,6 +38,6 @@ class Password extends Component
 
         $this->reset('current_password', 'password', 'password_confirmation');
 
-        $this->dispatch('showToast', status: 'success', message: 'Password updated.');
+        $this->dispatch('showToast', status: 'success', message: 'Password berhasil diubah.');
     }
 }
