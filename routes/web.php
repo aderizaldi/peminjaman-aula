@@ -2,6 +2,8 @@
 
 use App\Livewire\Pages\Dashboard;
 use App\Livewire\Pages\Hall;
+use App\Livewire\Pages\HallReservation;
+use App\Livewire\Pages\HallSchedule;
 use App\Livewire\Pages\UserManagement;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
@@ -22,6 +24,9 @@ Route::middleware(['auth'])->group(function () {
 
 Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::get('/', Dashboard::class)->name('dashboard');
+    Route::get('/peminjaman-aula', HallReservation::class)->name('dashboard.reservation');
+    Route::get('/penjadwalan-aula', HallSchedule::class)->name('dashboard.schedule');
+
     Route::get('user', UserManagement::class)->name('dashboard.user');
     Route::get('hall', Hall::class)->name('dashboard.hall');
 });

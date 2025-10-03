@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class HallSchedule extends Model
+class Time extends Model
 {
     //
 }

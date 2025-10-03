@@ -1,9 +1,9 @@
 <?php
 
 use App\Models\Hall;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -12,11 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hall_schedules', function (Blueprint $table) {
+        Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Hall::class)->constrained();
-            $table->datetime('start_time');
-            $table->datetime('end_time');
+            $table->string('event_name');
+            $table->longText('description')->nullable();
+
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hall_schedules');
+        Schema::dropIfExists('schedules');
     }
 };
