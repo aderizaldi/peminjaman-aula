@@ -2,6 +2,7 @@
 
 use App\Livewire\Pages\Dashboard;
 use App\Livewire\Pages\Hall;
+use App\Livewire\Pages\UserManagement;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -21,6 +22,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::get('/', Dashboard::class)->name('dashboard');
+    Route::get('user', UserManagement::class)->name('dashboard.user');
     Route::get('hall', Hall::class)->name('dashboard.hall');
 });
 

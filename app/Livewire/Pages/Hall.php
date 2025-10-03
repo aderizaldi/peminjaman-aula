@@ -82,7 +82,7 @@ class Hall extends Component
         $this->dispatch('showToast', status: 'success', message: 'Data berhasil ditambahkan.');
     }
 
-    public function update($id)
+    public function update()
     {
         $this->validate([
             'name' => 'required',
@@ -90,7 +90,7 @@ class Hall extends Component
             'status' => 'required',
         ]);
 
-        $hall = HallModel::find($id);
+        $hall = HallModel::find($this->id);
         $hall->update([
             'name' => $this->name,
             'description' => $this->description,
@@ -102,9 +102,9 @@ class Hall extends Component
         $this->dispatch('showToast', status: 'success', message: 'Data berhasil diubah.');
     }
 
-    public function delete($id)
+    public function delete()
     {
-        $hall = HallModel::find($id);
+        $hall = HallModel::find($this->id);
         $hall->delete();
 
         $this->closeModal('delete');

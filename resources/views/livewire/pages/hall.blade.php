@@ -66,7 +66,7 @@
     {{-- modal tambah --}}
     <flux:modal wire:model="modal.create" class="min-w-sm md:min-w-xl space-y-4">
         <flux:heading size="lg">Tambah Aula</flux:heading>
-        <form wire:submit="store">
+        <form wire:submit="create">
             <div class="space-y-4">
                 <flux:input label="Nama Aula" wire:model="name" />
                 <flux:textarea label="Deskripsi" wire:model="description" />
