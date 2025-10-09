@@ -24,7 +24,7 @@ return new class extends Migration
             $table->enum('status', [ScheduleStatus::PENDING, ScheduleStatus::APPROVED, ScheduleStatus::REJECTED])->default(ScheduleStatus::PENDING);
             $table->string('document')->nullable();
             $table->longText('notes')->nullable();
-            $table->foreignIdFor(User::class, 'approved_by')->nullable()->constrained();
+            $table->foreignIdFor(User::class, 'approved_rejected_by')->nullable()->constrained();
             $table->timestamps();
         });
     }

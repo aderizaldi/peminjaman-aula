@@ -55,10 +55,12 @@
                         <td class="px-6 py-4 text-right">
                             <flux:button type="button" wire:click="openModal('detail', {{ $schedule->id }})" size="xs">Detail
                             </flux:button>
+                            @hasanyrole('admin|operator')
                             @if($schedule->status === 'pending')
-                            <flux:button type="button" wire:click="" variant="primary" color="yellow" size="xs">
+                            <flux:button type="button" href="{{ route('dashboard.reservation.detail', $schedule->id) }}" variant="primary" color="yellow" size="xs">
                                 Terima/Tolak</flux:button>
                             @endif
+                            @endhasanyrole
                         </td>
                     </tr>
                     @empty
@@ -126,8 +128,14 @@
             </div>
             <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-3">
                 <h3 class="text-md font-semibold">Disetujui Oleh:</h3>
-                <p>{{ $schedule->approved_by?->name ?? '-'}}</p>
+                <p>{{ $schedule->approved_rejected_by?->name ?? '-'}}</p>
             </div>
+            <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-3">
+                <h3 class="text-md font-semibold">Notes:</h3>
+                <p class="text-orange-500">{{ empty($schedule->notes) ? '-' : $schedule->notes }}</p>
+
+            </div>
+
         </div>
         <div class="flex mt-4">
             <flux:spacer />

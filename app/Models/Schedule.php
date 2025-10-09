@@ -23,8 +23,8 @@ class Schedule extends Model
         return $this->hasMany(Time::class);
     }
 
-    public function approvedBy()
+    public function approvedRejectedBy()
     {
-        return $this->belongsTo(User::class, 'approved_by');
+        return $this->belongsTo(User::class, 'approved_rejected_by');
     }
 }

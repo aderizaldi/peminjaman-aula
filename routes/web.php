@@ -2,6 +2,7 @@
 
 use App\Livewire\Pages\CreateHallReservation;
 use App\Livewire\Pages\Dashboard;
+use App\Livewire\Pages\DetailHallReservation;
 use App\Livewire\Pages\Hall;
 use App\Livewire\Pages\HallReservation;
 use App\Livewire\Pages\HallSchedule;
@@ -27,8 +28,8 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::get('/', Dashboard::class)->name('dashboard');
     Route::get('/peminjaman-aula', HallReservation::class)->name('dashboard.reservation');
     Route::get('/peminjaman-aula/create', CreateHallReservation::class)->name('dashboard.reservation.create');
+    Route::get('/peminjaman-aula/{id}/detail', DetailHallReservation::class)->name('dashboard.reservation.detail');
     Route::get('/penjadwalan-aula', HallSchedule::class)->name('dashboard.schedule');
-
     Route::get('user', UserManagement::class)->name('dashboard.user');
     Route::get('hall', Hall::class)->name('dashboard.hall');
 });

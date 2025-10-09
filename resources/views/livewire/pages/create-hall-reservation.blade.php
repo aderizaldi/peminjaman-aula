@@ -10,7 +10,7 @@
                 <h2 class="text-lg font-semibold">Buat Peminjaman</h2>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="flex flex-col gap-4">
                     <flux:select label="Aula" required wire:model="hall_id">
                         <option value="">--Pilih Aula--</option>
@@ -47,7 +47,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-2 flex justify-end items-center">
+                <div class="md:col-span-2 flex justify-end items-center">
                     <flux:button type="button" variant="primary" wire:click="create" icon="paper-airplane">Buat Peminjaman</flux:button>
                 </div>
             </div>
