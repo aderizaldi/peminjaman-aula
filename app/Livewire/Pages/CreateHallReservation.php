@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages;
 
 use App\Models\Hall;
+use App\Models\Time;
 use Livewire\Component;
 use App\Models\Schedule;
 use App\Enums\HallStatus;
@@ -55,6 +56,28 @@ class CreateHallReservation extends Component
             'times.*.start_time' => 'required',
             'times.*.end_time' => 'required',
         ]);
+
+        foreach ($this->times as $time) {
+            $existingSchedule = Time::whereHas('schedule', function ($query) {
+                $query->where('hall_id', $this->hall_id)
+                    ->where('status', 'approved');
+            })
+                ->where('date', $time['date'])
+                ->where(function ($query) use ($time) {
+                    $query->whereBetween('start_time', [$time['start_time'], $time['end_time']])
+                        ->orWhereBetween('end_time', [$time['start_time'], $time['end_time']])
+                        ->orWhere(function ($q) use ($time) {
+                            $q->where('start_time', '<', $time['start_time'])
+                                ->where('end_time', '>', $time['end_time']);
+                        });
+                })
+                ->exists();
+
+            if ($existingSchedule) {
+                $this->dispatch('showToast', status: 'error', message: 'Jadwal pada tanggal ' . $time['date'] . ', waktu ' . $time['start_time'] . ' - ' . $time['end_time'] . ' sudah ada sebelumnya.');
+                return;
+            }
+        }
 
         $schedule = Schedule::create([
             'hall_id' => $this->hall_id,

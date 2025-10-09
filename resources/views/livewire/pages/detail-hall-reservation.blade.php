@@ -81,7 +81,7 @@
                 <flux:modal.close>
                     <flux:button variant="ghost">Batal</flux:button>
                 </flux:modal.close>
-                <flux:button variant="primary" color="green" wire:click="">Terima</flux:button>
+                <flux:button variant="primary" color="green" wire:click="approve">Terima</flux:button>
             </div>
         </div>
     </flux:modal>
@@ -100,7 +100,7 @@
                 <flux:modal.close>
                     <flux:button variant="ghost">Batal</flux:button>
                 </flux:modal.close>
-                <flux:button variant="primary" color="red" wire:click="">Tolak</flux:button>
+                <flux:button variant="primary" color="red" wire:click="reject">Tolak</flux:button>
             </div>
         </div>
     </flux:modal>

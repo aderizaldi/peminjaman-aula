@@ -5,6 +5,7 @@ namespace App\Livewire\Pages;
 use App\Models\Time;
 use Livewire\Component;
 use App\Models\Schedule;
+use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 
@@ -38,6 +39,10 @@ class HallReservation extends Component
     public function getSchedules()
     {
         $query = Schedule::query();
+
+        if (Auth::user()->hasRole('user')) {
+            $query->where('user_id', Auth::user()->id);
+        }
 
         if ($this->search) {
             $query->where('event_name', 'like', '%' . $this->search . '%')->orWhere('description', 'like', '%' . $this->search . '%')->orWhere('status', 'like', '%' . $this->search . '%')->orWhere('halls.name', 'like', '%' . $this->search . '%')->orWhere('responsible_person', 'like', '%' . $this->search . '%');

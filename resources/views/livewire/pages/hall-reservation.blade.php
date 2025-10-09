@@ -81,6 +81,7 @@
     </div>
 
     {{-- modal detail --}}
+    @if($schedule)
     <flux:modal wire:model="modal.detail" class="min-w-sm md:min-w-xl space-y-4">
         <flux:heading size="lg">Detail Peminjaman</flux:heading>
         <div class="space-y-2">
@@ -112,7 +113,7 @@
             <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-3">
                 <h3 class="text-md font-semibold">Dokumen:</h3>
                 @if($schedule->document)
-                <flux:button type="button" href="{{ asset('storage/' . $schedule->document) }}" target="_blank" size="xs">Lihat
+                <flux:button type="button" href="{{ asset('storage/' . $schedule->document) }}" target="_blank" size="xs" icon="eye">Lihat
                     Dokumen</flux:button>
                 @else
                 <p class="text-sm text-gray-500 dark:text-gray-400">Tidak ada dokumen</p>
@@ -133,10 +134,9 @@
             <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-3">
                 <h3 class="text-md font-semibold">Notes:</h3>
                 <p class="text-orange-500">{{ empty($schedule->notes) ? '-' : $schedule->notes }}</p>
-
             </div>
-
         </div>
+        @endif
         <div class="flex mt-4">
             <flux:spacer />
             <flux:modal.close>
