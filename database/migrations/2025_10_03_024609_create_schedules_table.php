@@ -1,6 +1,8 @@
 <?php
 
+use App\Enums\ScheduleStatus;
 use App\Models\Hall;
+use App\Models\User;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -14,10 +16,15 @@ return new class extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Hall::class)->constrained();
             $table->string('event_name');
+            $table->string('responsible_person');
             $table->longText('description')->nullable();
-
+            $table->enum('status', [ScheduleStatus::PENDING, ScheduleStatus::APPROVED, ScheduleStatus::REJECTED])->default(ScheduleStatus::PENDING);
+            $table->string('document')->nullable();
+            $table->longText('notes')->nullable();
+            $table->foreignIdFor(User::class, 'approved_by')->nullable()->constrained();
             $table->timestamps();
         });
     }

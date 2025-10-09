@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->longText('description')->nullable();
-            $table->enum('status', [HallStatus::ACTIVE, HallStatus::INACTIVE])->default('active');
+            $table->enum('status', [HallStatus::ACTIVE, HallStatus::INACTIVE])->default(HallStatus::ACTIVE);
             $table->timestamps();
         });
     }
