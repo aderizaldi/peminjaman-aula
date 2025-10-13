@@ -58,23 +58,28 @@ class CreateHallReservation extends Component
         ]);
 
         foreach ($this->times as $time) {
+            // Ambil start_time dan end_time dari array $time
+            $startTime = $time['start_time'];
+            $endTime = $time['end_time'];
+
             $existingSchedule = Time::whereHas('schedule', function ($query) {
                 $query->where('hall_id', $this->hall_id)
                     ->where('status', 'approved');
             })
                 ->where('date', $time['date'])
-                ->where(function ($query) use ($time) {
-                    $query->whereBetween('start_time', [$time['start_time'], $time['end_time']])
-                        ->orWhereBetween('end_time', [$time['start_time'], $time['end_time']])
-                        ->orWhere(function ($q) use ($time) {
-                            $q->where('start_time', '<', $time['start_time'])
-                                ->where('end_time', '>', $time['end_time']);
-                        });
+                ->where(function ($query) use ($startTime, $endTime) {
+                    // Logika untuk memeriksa tumpang tindih
+                    $query->where(function ($q) use ($startTime, $endTime) {
+                        // Kasus 1: Jadwal baru dimulai di tengah jadwal yang sudah ada.
+                        // ⏰ [jadwal lama] |start_time baru|
+                        $q->where('start_time', '<', $endTime)
+                            ->where('end_time', '>', $startTime);
+                    });
                 })
                 ->exists();
 
             if ($existingSchedule) {
-                $this->dispatch('showToast', status: 'error', message: 'Jadwal pada tanggal ' . $time['date'] . ', waktu ' . $time['start_time'] . ' - ' . $time['end_time'] . ' sudah ada sebelumnya.');
+                $this->dispatch('showToast', status: 'error', message: 'Jadwal pada tanggal ' . $time['date'] . ', waktu ' . $startTime . ' - ' . $endTime . ' sudah ada sebelumnya.');
                 return;
             }
         }

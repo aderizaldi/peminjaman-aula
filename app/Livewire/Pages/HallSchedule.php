@@ -14,6 +14,7 @@ class HallSchedule extends Component
     public $date;
 
     public $halls;
+    public $selectedHall;
 
     public function mount()
     {
@@ -21,12 +22,19 @@ class HallSchedule extends Component
         $this->date = now()->format('Y-m-d');
 
         $this->halls = Hall::where('status', HallStatus::ACTIVE)->get();
+        $this->selectedHall = Hall::find($this->hall_id);
     }
 
     public function getTime()
     {
         $times = Time::where('date', $this->date)->whereRelation('schedule', 'hall_id', $this->hall_id)->whereRelation('schedule', 'status', ScheduleStatus::APPROVED)->orderBy('start_time')->get();
         return $times;
+    }
+
+    public function selectHall($id)
+    {
+        $this->hall_id = $id;
+        $this->selectedHall = Hall::find($this->hall_id);
     }
 
     public function render()

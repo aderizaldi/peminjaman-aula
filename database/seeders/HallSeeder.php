@@ -14,12 +14,12 @@ class HallSeeder extends Seeder
     public function run(): void
     {
         Hall::create([
-            'name' => 'Ki Hajar',
+            'name' => 'Kartini',
             'description' => '',
         ]);
 
         Hall::create([
-            'name' => 'Kartini',
+            'name' => 'Ki Hajar',
             'description' => '',
         ]);
     }
