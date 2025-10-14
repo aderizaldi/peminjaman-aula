@@ -6,15 +6,14 @@ use App\Livewire\Pages\DetailHallReservation;
 use App\Livewire\Pages\Hall;
 use App\Livewire\Pages\HallReservation;
 use App\Livewire\Pages\HallSchedule;
+use App\Livewire\Pages\Home;
 use App\Livewire\Pages\UserManagement;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', Home::class)->name('home');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
