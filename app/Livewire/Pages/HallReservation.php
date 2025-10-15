@@ -45,7 +45,7 @@ class HallReservation extends Component
         }
 
         if ($this->search) {
-            $query->where('event_name', 'like', '%' . $this->search . '%')->orWhere('description', 'like', '%' . $this->search . '%')->orWhere('status', 'like', '%' . $this->search . '%')->orWhere('halls.name', 'like', '%' . $this->search . '%')->orWhere('responsible_person', 'like', '%' . $this->search . '%');
+            $query->where('event_name', 'like', '%' . $this->search . '%')->orWhere('description', 'like', '%' . $this->search . '%')->orWhere('status', 'like', '%' . $this->search . '%')->orWhereRelation('hall', 'name', 'like', '%' . $this->search . '%')->orWhere('responsible_person', 'like', '%' . $this->search . '%');
         }
 
         $query->orderByRaw("FIELD(status, 'pending', 'approved', 'rejected')");
