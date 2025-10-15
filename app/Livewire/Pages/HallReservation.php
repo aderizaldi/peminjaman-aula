@@ -19,7 +19,8 @@ class HallReservation extends Component
     public $per_page = 10;
 
     public $modal = [
-        'detail' => false
+        'detail' => false,
+        'delete' => false
     ];
 
     public function openModal($modal, $id = null)
@@ -34,6 +35,14 @@ class HallReservation extends Component
     public function closeModal($modal)
     {
         $this->modal[$modal] = false;
+    }
+
+    public function delete($id)
+    {
+        $schedule = Schedule::find($id);
+        $schedule->delete();
+        $this->closeModal('delete');
+        $this->closeModal('detail');
     }
 
     public function getSchedules()

@@ -138,10 +138,32 @@
         </div>
         @endif
         <div class="flex mt-4">
+            <flux:button variant="danger" wire:click="openModal('delete', {{ $schedule->id }})" icon="trash">Hapus</flux:button>
+
             <flux:spacer />
             <flux:modal.close>
                 <flux:button variant="primary">Kembali</flux:button>
             </flux:modal.close>
+        </div>
+    </flux:modal>
+
+    {{-- modal delete --}}
+    <flux:modal wire:model="modal.delete" class="min-w-sm">
+        <div class="space-y-4">
+            <div>
+                <flux:heading size="lg">Hapus?</flux:heading>
+                <flux:subheading>
+                    <p>Apakah Anda yakin ingin menghapus peminjaman ini.</p>
+                    <p>Semua data yang berkaitan dengan peminjaman ini akan dihapus.</p>
+                </flux:subheading>
+            </div>
+            <div class="flex gap-2">
+                <flux:spacer />
+                <flux:modal.close>
+                    <flux:button variant="ghost">Batal</flux:button>
+                </flux:modal.close>
+                <flux:button variant="primary" color="red" wire:click="delete({{ $schedule->id }})">Hapus</flux:button>
+            </div>
         </div>
     </flux:modal>
 

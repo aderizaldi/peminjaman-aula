@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('times', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Schedule::class)->constrained();
+            $table->foreignIdFor(Schedule::class)->constrained()->cascadeOnDelete();
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');
