@@ -138,8 +138,9 @@
         </div>
         @endif
         <div class="flex mt-4">
+            @hasanyrole('admin|operator')
             <flux:button variant="danger" wire:click="openModal('delete', {{ $schedule->id }})" icon="trash">Hapus</flux:button>
-
+            @endhasanyrole
             <flux:spacer />
             <flux:modal.close>
                 <flux:button variant="primary">Kembali</flux:button>
