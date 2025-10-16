@@ -30,8 +30,8 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
     Route::get('/peminjaman-aula/{id}/detail', DetailHallReservation::class)->name('dashboard.reservation.detail');
     Route::get('/penjadwalan-aula', HallSchedule::class)->name('dashboard.schedule');
 
-    Route::get('user', UserManagement::class)->middleware(['role:admin'])->name('dashboard.user');
-    Route::get('hall', Hall::class)->middleware(['role:admin'])->name('dashboard.hall');
+    Route::get('user', UserManagement::class)->middleware(['role:admin|operator'])->name('dashboard.user');
+    Route::get('hall', Hall::class)->middleware(['role:admin|operator'])->name('dashboard.hall');
 });
 
 

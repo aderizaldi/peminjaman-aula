@@ -18,13 +18,13 @@
                 <flux:navlist.item icon="numbered-list" :href="route('dashboard.schedule')" :current="request()->routeIs('dashboard.schedule')" wire:navigate>{{ __('Penjadwalan Aula') }}</flux:navlist.item>
             </flux:navlist.group>
 
-            @role('admin')
+            @hasanyrole('admin|operator')
             <flux:navlist.group :heading="__('Pengaturan')" class="grid">
                 <flux:navlist.item icon="building-office" :href="route('dashboard.hall')" :current="request()->routeIs('dashboard.hall')" wire:navigate>{{ __('Aula') }}</flux:navlist.item>
 
                 <flux:navlist.item icon="users" :href="route('dashboard.user')" :current="request()->routeIs('dashboard.user')" wire:navigate>{{ __('User') }}</flux:navlist.item>
             </flux:navlist.group>
-            @endrole
+            @endhasanyrole
 
         </flux:navlist>
 

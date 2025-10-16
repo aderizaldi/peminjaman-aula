@@ -73,10 +73,12 @@
                 <flux:input label="Email" wire:model="email" />
                 <flux:input label="Password" wire:model="password" type="password" />
                 <flux:input label="Ulangi Password" wire:model="password_confirmation" type="password" />
+                @hasrole('admin')
                 <flux:select label="Role" wire:model="role">
                     <option value="user">User</option>
                     <option value="operator">Operator</option>
                 </flux:select>
+                @endhasrole
             </div>
             <div class="flex gap-2 mt-4">
                 <flux:spacer />
@@ -97,10 +99,12 @@
                 <flux:input label="Email" wire:model="email" />
                 <flux:input label="Password" wire:model="password" type="password" description="*Biarkan kosong jika tidak ingin mengganti password" />
                 <flux:input label="Ulangi Password" wire:model="password_confirmation" type="password" />
+                @hasrole('admin')
                 <flux:select label="Role" wire:model="role">
-                    <option value="user" @selected($role=='user' )>User</option>
-                    <option value="operator" @selected($role=='operator' )>Operator</option>
+                    <option value="user">User</option>
+                    <option value="operator">Operator</option>
                 </flux:select>
+                @endhasrole
             </div>
             <div class="flex gap-2 mt-4">
                 <flux:spacer />

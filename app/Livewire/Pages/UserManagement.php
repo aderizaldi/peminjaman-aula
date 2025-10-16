@@ -58,6 +58,10 @@ class UserManagement extends Component
     {
         $query = User::query()->withoutRole('admin');
 
+        if (Auth::user()->hasRole('operator')) {
+            $query = $query->withoutRole('operator');
+        }
+
         if ($this->search) {
             $query = $query->where('name', 'like', '%' . $this->search . '%')->orWhere('email', 'like', '%' . $this->search . '%')->orWhere('role', 'like', '%' . $this->search . '%');
         }
