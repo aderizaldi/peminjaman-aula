@@ -108,7 +108,7 @@
         {{-- copyright --}}
         <div class="flex items-center gap-3 ms-6">
             <div class="flex flex-col justify-center">
-                <p class="text-xs font-light text-[#050401]">© 2025 Dinas Pendidikan dan Kebudayaan Singkawang</p>
+                <p class="text-xs font-light text-[#050401]">© 2025 Dinas Pendidikan dan Kebudayaan Kota Singkawang</p>
             </div>
         </div>
         <div class="flex items-center gap-3 me-6">
