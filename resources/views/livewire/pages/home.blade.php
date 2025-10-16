@@ -24,12 +24,14 @@
                 </div>
             </div>
         </div>
-        <div class="h-[100vh] lg:h-[calc(100vh*8/9)] basis-full lg:basis-10/16 p-6 flex flex-col items-center justify-center w-screen">
+
+        <div class="h-[100vh] lg:h-[calc(100vh*8/9)] basis-full lg:basis-10/16 p-6 flex flex-col items-center justify-center w-screen" wire:poll.30s="nextScreen">
+            @switch($currentScreen)
+            @case('screen1')
             <div class="size-full bg-[#fffaff] rounded-xl p-4 flex flex-col">
-                <h2 class="text-3xl font-semibold text-[#050401] text-center p-4" data-hall-id="{{ $selected_hall->id }}">
+                <h2 class="text-4xl font-semibold text-[#050401] text-center p-4" data-hall-id="{{ $selected_hall->id }}">
                     AULA {{ strtoupper($selected_hall->name) }}
                 </h2>
-                {{-- Pembungkus tabel dengan tinggi terbatas dan properti overflow --}}
                 <div class="flex-grow overflow-y-auto overflow-x-auto" id="table-container">
                     <table class="min-w-full divide-y text-[#050401] divide-gray-200 dark:divide-neutral-700">
                         <thead class="bg-[#fffaff] z-10 sticky top-0">
@@ -43,10 +45,7 @@
                         <tbody class="divide-y divide-gray-200 dark:divide-neutral-700 text-lg" wire:poll.60s="updateTimes">
                             @forelse($times as $time)
                             <tr wire:key="time-{{ $time->id }}" class="{{
-                                \Carbon\Carbon::now()->between(
-                                    $time->start_time->setDate($time->date->year, $time->date->month, $time->date->day),
-                                    $time->end_time->setDate($time->date->year, $time->date->month, $time->date->day)
-                                ) ? 'bg-[#fc5130] now' : ''
+                                $time_now?->id == $time->id ? 'bg-[#fc5130] now' : ''
                             }} {{ now()->format('H:i') > $time->end_time->format('H:i') ? 'text-gray-500' : '' }}">
                                 <td class="px-6 py-4 text-nowrap">{{ $time->start_time->format('H:i') }} - {{ $time->end_time->format('H:i') }}</td>
                                 <td class="px-6 py-4">{{ $time->schedule->event_name }}</td>
@@ -56,15 +55,34 @@
                             @empty
                             <tr>
                                 <td colspan="5" class="px-6 py-4 whitespace-nowrap">
-                                    <p class="text-center text-sm text-gray-500 dark:text-gray-400">Tidak ada data tersedia</p>
+                                    <p class="text-center text-sm text-gray-500 dark:text-gray-400">Tidak ada kegiatan</p>
                                 </td>
                             </tr>
                             @endforelse
                         </tbody>
-
                     </table>
                 </div>
             </div>
+            @break
+            @case('screen2')
+            <div class="size-full bg-[#fffaff] rounded-xl p-4 flex flex-col">
+                <div class="flex-grow flex flex-col justify-center items-center">
+                    <h2 class="text-5xl font-semibold text-[#050401] text-center p-4" data-hall-id="{{ $selected_hall->id }}">
+                        AULA {{ strtoupper($selected_hall->name) }}
+                    </h2>
+                    @if($time_now)
+                    <h3 class="text-2xl font-semibold text-[#050401] text-center p-4">{{ $time_now->start_time->format('H:i') }} - {{ $time_now->end_time->format('H:i') }}</h3>
+                    <h3 class="text-4xl font-semibold text-[#050401] text-center p-4">{{ $time_now->schedule->event_name }}</h3>
+                    <h3 class="text-lg font-semibold text-[#050401] text-center p-4">{{ empty($time_now->schedule->description) ? '-' : $time_now->schedule->description }}</h3>>
+                    @else
+                    <h3 class="text-4xl font-semibold text-gray-500 text-center p-4 ">Tidak ada kegiatan saat ini</h3>
+                    @endif
+                </div>
+            </div>
+            @break
+            @endswitch
+
+
         </div>
 
         <div class="h-[100vh] lg:h-full basis-full lg:basis-4/16 p-6 pt-0 lg:pt-6 lg:ps-0 flex flex-col">
