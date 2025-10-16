@@ -1,5 +1,24 @@
 <div class="flex flex-col h-min-screen lg:h-screen bg-[#efefef]">
     <div class="basis-9/9 lg:basis-8/9 flex flex-row flex-wrap">
+        <div class="lg:hidden basis-16/16 p-6 pb-0 flex flex-col justify-between">
+            <div class="size-full bg-[#30bced] rounded-xl p-4 flex flex-col">
+                <div class="flex flex-col">
+                    <div class="w-full h-fit p-2 flex justify-center">
+                        <img src="{{ asset('assets/img/singkawang.png') }}" alt="Logo Singkawang" class="w-12 object-contain">
+                    </div>
+                    <div class="text-center">
+                        <h1 class="text-lf font-semibold text-[#050401]">Dinas Pendidikan dan Kebudayaan</h1>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-1 p-4">
+                    <h1 class="text-md font-semibold text-[#050401] text-center ">Aula:</h1>
+                    @foreach($halls as $hall)
+                    <flux:button type="button" class="!bg-[#050401] !border-0 !text-[#fffaff] cursor-pointer hover:shadow-md" size="sm" wire:click="selectHall({{ $hall->id }})">{{ $hall->name }}</flux:button>
+                    @endforeach
+                </div>
+
+            </div>
+        </div>
         <div class="basis-2/16 bg-[#30bced] p-2 hidden lg:flex lg:flex-col justify-between">
             <div class="flex flex-col">
                 <div class="w-full h-fit p-2 flex justify-center mt-4">
