@@ -24,6 +24,12 @@
 
                 <flux:navlist.item icon="users" :href="route('dashboard.user')" :current="request()->routeIs('dashboard.user')" wire:navigate>{{ __('User') }}</flux:navlist.item>
             </flux:navlist.group>
+
+            <flux:navlist.group :heading="__('Beranda')" class="grid">
+                <flux:navlist.item icon="video-camera" :href="route('dashboard.video')" :current="request()->routeIs('dashboard.video')" wire:navigate>{{ __('Video') }}</flux:navlist.item>
+                <flux:navlist.item icon="photo" :href="route('dashboard.image')" :current="request()->routeIs('dashboard.image')" wire:navigate>{{ __('Gambar') }}</flux:navlist.item>
+
+            </flux:navlist.group>
             @endhasanyrole
 
         </flux:navlist>

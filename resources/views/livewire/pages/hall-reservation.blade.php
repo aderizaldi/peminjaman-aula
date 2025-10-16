@@ -136,7 +136,6 @@
                 <p class="text-orange-500">{{ empty($schedule->notes) ? '-' : $schedule->notes }}</p>
             </div>
         </div>
-        @endif
         <div class="flex mt-4">
             @hasanyrole('admin|operator')
             <flux:button variant="danger" wire:click="openModal('delete', {{ $schedule->id }})" icon="trash">Hapus</flux:button>
@@ -147,8 +146,6 @@
             </flux:modal.close>
         </div>
     </flux:modal>
-
-    {{-- modal delete --}}
     <flux:modal wire:model="modal.delete" class="min-w-sm">
         <div class="space-y-4">
             <div>
@@ -167,5 +164,8 @@
             </div>
         </div>
     </flux:modal>
+    @endif
+
+    {{-- modal delete --}}
 
 </div>

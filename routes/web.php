@@ -7,7 +7,9 @@ use App\Livewire\Pages\Hall;
 use App\Livewire\Pages\HallReservation;
 use App\Livewire\Pages\HallSchedule;
 use App\Livewire\Pages\Home;
+use App\Livewire\Pages\Image;
 use App\Livewire\Pages\UserManagement;
+use App\Livewire\Pages\Video;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -32,6 +34,9 @@ Route::prefix('dashboard')->middleware(['auth'])->group(function () {
 
     Route::get('user', UserManagement::class)->middleware(['role:admin|operator'])->name('dashboard.user');
     Route::get('hall', Hall::class)->middleware(['role:admin|operator'])->name('dashboard.hall');
+
+    Route::get('video', Video::class)->middleware(['role:admin|operator'])->name('dashboard.video');
+    Route::get('image', Image::class)->middleware(['role:admin|operator'])->name('dashboard.image');
 });
 
 
