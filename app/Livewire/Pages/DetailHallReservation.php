@@ -9,6 +9,9 @@ use App\Models\Schedule;
 use App\Enums\HallStatus;
 use App\Enums\ScheduleStatus;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotifAccHallReservation;
+use App\Mail\NotifRejectHallReservation;
 
 class DetailHallReservation extends Component
 {
@@ -134,6 +137,12 @@ class DetailHallReservation extends Component
             ]);
         }
 
+        try {
+            Mail::to($schedule->user->email)->send(new NotifAccHallReservation($schedule));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
         return redirect()->route('dashboard.reservation')->with('showToast', [
             'status' => 'success',
             'message' => 'Permohonan berhasil disetujui',
@@ -152,6 +161,12 @@ class DetailHallReservation extends Component
             'notes' => $this->notes,
             'approved_rejected_by' => Auth::id()
         ]);
+
+        try {
+            Mail::to($schedule->user->email)->send(new NotifRejectHallReservation($schedule));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
 
         return redirect()->route('dashboard.reservation')->with('showToast', [
             'status' => 'success',

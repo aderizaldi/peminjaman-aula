@@ -25,7 +25,7 @@
                 <div>
                     <p class="text-sm font-semibold mb-1">Dokumen</p>
                     @if($document)
-                    <flux:button type="button" variant="primary" color="blue" target="_blank" href="{{ $document }}" icon="eye">Lihat Dokumen</flux:button>
+                    <flux:button type="button" variant="primary" color="blue" target="_blank" href="{{ asset('storage/' . $document) }}" icon="eye">Lihat Dokumen</flux:button>
                     @else
                     <p class="text-sm text-gray-500 dark:text-gray-400">Tidak ada dokumen</p>
                     @endif

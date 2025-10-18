@@ -4,12 +4,15 @@ namespace App\Livewire\Pages;
 
 use App\Models\Hall;
 use App\Models\Time;
+use App\Models\User;
 use Livewire\Component;
 use App\Models\Schedule;
 use App\Enums\HallStatus;
 use App\Enums\ScheduleStatus;
 use Livewire\WithFileUploads;
+use App\Mail\NotifHallReservation;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CreateHallReservation extends Component
 {
@@ -100,6 +103,21 @@ class CreateHallReservation extends Component
                 'start_time' => $time['start_time'],
                 'end_time' => $time['end_time'],
             ]);
+        }
+
+        try {
+            if (Auth::user()->hasRole('user')) {
+                // get user that have role admin or operator
+                $users = User::whereHas('roles', function ($query) {
+                    $query->where('name', 'admin')
+                        ->orWhere('name', 'operator');
+                })->get();
+                foreach ($users as $user) {
+                    Mail::to($user->email)->send(new NotifHallReservation($schedule));
+                }
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
         }
 
         return redirect()->route('dashboard.reservation')->with('showToast', [
