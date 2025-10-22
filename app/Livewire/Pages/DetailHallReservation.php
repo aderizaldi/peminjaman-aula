@@ -84,7 +84,6 @@ class DetailHallReservation extends Component
             'event_name' => 'required',
             'responsible_person' => 'required',
             'description' => 'nullable',
-            'document' => 'nullable|file|mimes:pdf',
             'notes' => 'nullable',
             'times.*.date' => 'required',
             'times.*.start_time' => 'required',
@@ -122,7 +121,6 @@ class DetailHallReservation extends Component
             'hall_id' => $this->hall_id,
             'event_name' => $this->event_name,
             'responsible_person' => $this->responsible_person,
-            'description' => $this->description,
             'status' => ScheduleStatus::APPROVED,
             'notes' => $this->notes,
             'approved_rejected_by' => Auth::id()

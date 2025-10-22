@@ -13,7 +13,7 @@ class HallReservation extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
-    public Schedule $schedule;
+    public Schedule $selected_schedule;
 
     public $search = null;
     public $per_page = 10;
@@ -26,7 +26,7 @@ class HallReservation extends Component
     public function openModal($modal, $id = null)
     {
         if ($modal == 'detail' && $id) {
-            $this->schedule = Schedule::find($id);
+            $this->selected_schedule = Schedule::find($id);
         }
 
         $this->modal[$modal] = true;

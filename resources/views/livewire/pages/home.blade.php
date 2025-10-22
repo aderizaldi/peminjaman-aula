@@ -86,15 +86,15 @@
             @case('screen2')
             <div class="size-full bg-[#fffaff] rounded-xl p-4 flex flex-col">
                 <div class="flex-grow flex flex-col justify-center items-center">
-                    <h2 class="text-5xl font-semibold text-[#050401] text-center p-4" data-hall-id="{{ $selected_hall->id }}">
+                    <h2 class="text-5xl font-semibold text-[#050401] text-center p-2" data-hall-id="{{ $selected_hall->id }}">
                         AULA {{ strtoupper($selected_hall->name) }}
                     </h2>
                     @if($time_now)
-                    <h3 class="text-2xl font-semibold text-[#050401] text-center p-4">{{ $time_now->start_time->format('H:i') }} - {{ $time_now->end_time->format('H:i') }}</h3>
-                    <h3 class="text-4xl font-semibold text-[#050401] text-center p-4">{{ $time_now->schedule->event_name }}</h3>
-                    <h3 class="text-lg font-semibold text-[#050401] text-center p-4">{{ empty($time_now->schedule->description) ? '-' : $time_now->schedule->description }}</h3>>
+                    <h3 class="text-2xl font-semibold text-[#050401] text-center p-2">{{ $time_now->start_time->format('H:i') }} - {{ $time_now->end_time->format('H:i') }}</h3>
+                    <h3 class="text-4xl font-semibold text-[#050401] text-center p-2">{{ $time_now->schedule->event_name }}</h3>
+                    <h3 class="text-lg font-semibold text-[#050401] text-center p-2">{{ empty($time_now->schedule->description) ? '-' : $time_now->schedule->description }}</h3>
                     @else
-                    <h3 class="text-4xl font-semibold text-gray-500 text-center p-4 ">Tidak ada kegiatan saat ini</h3>
+                    <h3 class="text-4xl font-semibold text-gray-500 text-center p-2 ">Tidak ada kegiatan saat ini</h3>
                     @endif
                 </div>
             </div>
@@ -134,6 +134,8 @@
             <div class="flex flex-col justify-center">
                 <p class="text-xs font-light text-[#050401]">Telepon/Whatsapp: +62 813 4941 4007</p>
                 <p class="text-xs font-light text-[#050401]">Email: <a href="mailto:disdikbud@singkawangkota.go.id" target="_blank">disdikbud@singkawangkota.go.id</a></p>
+
+
                 {{-- <p class="text-xs font-light text-[#050401]">Alamat: Jl. Alianyang No. 1 Singkawang 79123</p> --}}
             </div>
         </div>

@@ -81,39 +81,39 @@
     </div>
 
     {{-- modal detail --}}
-    @if($schedule)
+    @if($selected_schedule)
     <flux:modal wire:model="modal.detail" class="min-w-sm md:min-w-xl space-y-4">
         <flux:heading size="lg">Detail Peminjaman</flux:heading>
         <div class="space-y-2">
             <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-3">
                 <h3 class="text-md font-semibold">Aula:</h3>
-                {{-- @dd($schedule) --}}
-                <p>{{ $schedule->hall->name }}</p>
+                {{-- @dd($selected_schedule) --}}
+                <p>{{ $selected_schedule->hall->name }}</p>
             </div>
             <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-3">
                 <h3 class="text-md font-semibold">Hari/Tanggal/Waktu:</h3>
                 <ul>
-                    @foreach($schedule->times as $time)
+                    @foreach($selected_schedule->times as $time)
                     <li>{{ $time->date->format('l, d F Y') }} ({{ $time->start_time->format('H:i') }} - {{ $time->end_time->format('H:i') }})</li>
                     @endforeach
                 </ul>
             </div>
             <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-3">
                 <h3 class="text-md font-semibold">Kegiatan:</h3>
-                <p>{{ $schedule->event_name }}</p>
+                <p>{{ $selected_schedule->event_name }}</p>
             </div>
             <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-3">
                 <h3 class="text-md font-semibold">Penanggung Jawab:</h3>
-                <p>{{ $schedule->responsible_person }}</p>
+                <p>{{ $selected_schedule->responsible_person }}</p>
             </div>
             <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-3">
                 <h3 class="text-md font-semibold">Deskripsi:</h3>
-                <p>{{ $schedule->description }}</p>
+                <p>{{ $selected_schedule->description }}</p>
             </div>
             <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-3">
                 <h3 class="text-md font-semibold">Dokumen:</h3>
-                @if($schedule->document)
-                <flux:button type="button" href="{{ asset('storage/' . $schedule->document) }}" target="_blank" size="xs" icon="eye">Lihat
+                @if($selected_schedule->document)
+                <flux:button type="button" href="{{ asset('storage/' . $selected_schedule->document) }}" target="_blank" size="xs" icon="eye">Lihat
                     Dokumen</flux:button>
                 @else
                 <p class="text-sm text-gray-500 dark:text-gray-400">Tidak ada dokumen</p>
@@ -121,24 +121,24 @@
             </div>
             <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-3">
                 <h3 class="text-md font-semibold">Status:</h3>
-                <flux:badge color="{{ $schedule->status === 'approved' ? 'green' : ($schedule->status === 'rejected' ? 'red' : 'yellow') }}">{{ $schedule->status }}</flux:badge>
+                <flux:badge color="{{ $selected_schedule->status === 'approved' ? 'green' : ($selected_schedule->status === 'rejected' ? 'red' : 'yellow') }}">{{ $selected_schedule->status }}</flux:badge>
             </div>
             <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-3">
                 <h3 class="text-md font-semibold">Diajukan Oleh:</h3>
-                <p>{{ $schedule->user->name }}</p>
+                <p>{{ $selected_schedule->user->name }}</p>
             </div>
             <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-3">
                 <h3 class="text-md font-semibold">Disetujui Oleh:</h3>
-                <p>{{ $schedule->approved_rejected_by?->name ?? '-'}}</p>
+                <p>{{ $selected_schedule->approved_rejected_by?->name ?? '-'}}</p>
             </div>
             <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-3">
                 <h3 class="text-md font-semibold">Notes:</h3>
-                <p class="text-orange-500">{{ empty($schedule->notes) ? '-' : $schedule->notes }}</p>
+                <p class="text-orange-500">{{ empty($selected_schedule->notes) ? '-' : $selected_schedule->notes }}</p>
             </div>
         </div>
         <div class="flex mt-4">
             @hasanyrole('admin|operator')
-            <flux:button variant="danger" wire:click="openModal('delete', {{ $schedule->id }})" icon="trash">Hapus</flux:button>
+            <flux:button variant="danger" wire:click="openModal('delete', {{ $selected_schedule->id }})" icon="trash">Hapus</flux:button>
             @endhasanyrole
             <flux:spacer />
             <flux:modal.close>
@@ -160,7 +160,7 @@
                 <flux:modal.close>
                     <flux:button variant="ghost">Batal</flux:button>
                 </flux:modal.close>
-                <flux:button variant="primary" color="red" wire:click="delete({{ $schedule->id }})">Hapus</flux:button>
+                <flux:button variant="primary" color="red" wire:click="delete({{ $selected_schedule->id }})">Hapus</flux:button>
             </div>
         </div>
     </flux:modal>
